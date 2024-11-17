@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vertical Bar Chart with Legend</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%; /* Ensure full height is used */
+            overflow: hidden; /* Prevent scrollbars */
+            background-color: #d9ead3;
+            font-family: Arial, sans-serif;
+        }
+
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 60%; /* Ensure bars fit within the viewport */
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 30px; /* Add space between chart and legend */
+            gap: 20px;
+        }
+
+        .month {
+            position: relative;
+            width: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bars {
+            position: relative;
+            width: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 100%; /* Ensure bars scale properly */
+        }
+
+        .bar {
+            width: 15px;
+            background-color: #E7B549; /* Yellow for Hours */
+            margin: 0 2px;
+            transform-origin: bottom;
+            animation: grow 2s ease-in-out forwards;
+        }
+
+        .bar.cost {
+            background-color: #E7B549; /* Green for Monthly Cost */
+        }
+
+        .bar.hours {
+            background-color: #38761d; /* Yellow for Progress Genie Support */
+        }
+
+        .label {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @keyframes grow {
+            from {
+                height: 0;
+            }
+            to {
+                height: var(--bar-height);
+            }
+        }
+
+        /* Set the heights for each bar */
+        .month-1 .bar.cost {
+            --bar-height: 180px; /* Green for Month 1 Cost */
+            animation-delay: 0s;
+        }
+
+        .month-1 .bar.hours {
+            --bar-height: 140px; /* Yellow for Month 1 Hours */
+            animation-delay: 0s;
+        }
+
+        .month-2 .bar.cost {
+            --bar-height: 80px; /* Green for Month 2 Cost */
+            animation-delay: 0.5s;
+        }
+
+        .month-2 .bar.hours {
+            --bar-height: 140px; /* Yellow for Month 2 Hours */
+            animation-delay: 0.5s;
+        }
+
+        .month-3 .bar.cost {
+            --bar-height: 200px; /* Green for Month 3 Cost */
+            animation-delay: 1s;
+        }
+
+        .month-3 .bar.hours {
+            --bar-height: 140px; /* Yellow for Month 3 Hours */
+            animation-delay: 1s;
+        }
+
+        .month-4 .bar.cost {
+            --bar-height: 100px; /* Green for Month 4 Cost */
+            animation-delay: 1.5s;
+        }
+
+        .month-4 .bar.hours {
+            --bar-height:140px; /* Yellow for Month 4 Hours */
+            animation-delay: 1.5s;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Ensures legend wraps on small screens */
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Add space between legend icon and text */
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-box.hours {
+            background-color: #E7B549; /* Yellow for Progress Genie Support */
+        }
+
+        .legend-box.cost {
+            background-color: #38761d; /* Green for Monthly Cost */
+        }
+
+        .legend-text {
+            font-size: 1rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments for better mobile scaling */
+        @media (max-width: 768px) {
+            .chart {
+                height: auto;
+                flex-wrap: wrap; /* Allows bars to wrap */
+                gap: 15px; /* Adds spacing between months */
+            }
+
+            .month {
+                width: 20%;
+            }
+
+            .bars {
+                width: 30px; /* Shrink bars for smaller screens */
+            }
+
+            .bar {
+                width: 10px;
+            }
+
+            .legend-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart {
+                flex-direction: column; /* Stacks months vertically */
+                height: auto;
+                align-items: center; /* Center-align bars */
+                gap: 20px;
+            }
+
+            .month {
+                width: 100%;
+                align-items: center;
+            }
+
+            .bars {
+                width: 50px; /* Adjust bar width for mobile */
+            }
+
+            .bar {
+                width: 12px; /* Narrower bars for small screens */
+            }
+
+            .legend {
+                gap: 10px;
+            }
+
+            .legend-box {
+                width: 16px;
+                height: 16px;
+            }
+
+            .legend-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="chart">
+            <!-- Month 1 -->
+            <div class="month month-1">
+                <div class="bars">
+                    <div class="bar cost"></div>
+                    <div class="bar hours"></div>
+                </div>
+                <div class="label">Month 1</div>
+            </div>
+            <!-- Month 2 -->
+            <div class="month month-2">
+                <div class="bars">
+                    <div class="bar cost"></div>
+                    <div class="bar hours"></div>
+                </div>
+                <div class="label">Month 2</div>
+            </div>
+            <!-- Month 3 -->
+            <div class="month month-3">
+                <div class="bars">
+                    <div class="bar cost"></div>
+                    <div class="bar hours"></div>
+                </div>
+                <div class="label">Month 3</div>
+            </div>
+            <!-- Month 4 -->
+            <div class="month month-4">
+                <div class="bars">
+                    <div class="bar cost"></div>
+                    <div class="bar hours"></div>
+                </div>
+                <div class="label">Month 4</div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box hours"></div>
+                <span class="legend-text">PROGRESS GENIE SUPPORT (HOURS)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box cost"></div>
+                <span class="legend-text">MONTHLY COST (PRICE)</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
